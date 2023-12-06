@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: task-manager
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+  liquibase:
+    change-log: classpath:liquibase/db.changelog.yml
+    enabled: true
+    default-schema: taskmanagment
+  jpa:
+    show-sql: true
+
+jwt:
+  secret: ${JWT_SECRET}
+  access: 1
+  refresh: 30
+springdoc:
+  override-with-generic-response: false
+
+logging:
+  level:
+    org.springframework.web.servlet.handler.HandlerMappingIntrospector: error
+
