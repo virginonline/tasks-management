@@ -1,7 +1,6 @@
 package com.github.virginonline.tasks.service.impl;
 
 import com.github.virginonline.tasks.domain.exception.ResourceNotFoundException;
-import com.github.virginonline.tasks.domain.exception.UserNotFoundException;
 import com.github.virginonline.tasks.domain.user.Role;
 import com.github.virginonline.tasks.domain.user.User;
 import com.github.virginonline.tasks.repository.UserRepository;
@@ -9,7 +8,6 @@ import com.github.virginonline.tasks.service.UserService;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,19 +23,19 @@ public class UserServiceImpl implements UserService {
   public User getById(Long id) {
     log.info("Search user by id: {}", id);
     return userRepository.findById(id)
-        .orElseThrow(UserNotFoundException::new);
+        .orElseThrow(() -> new ResourceNotFoundException("User not found"));
   }
 
   @Override
   public User getByUsername(String username) {
     return userRepository.findByUsername(username)
-        .orElseThrow(UserNotFoundException::new);
+        .orElseThrow(() -> new ResourceNotFoundException("User not found"));
   }
 
   @Override
   public User getByEmail(String email) {
     return userRepository.findByEmail(email)
-        .orElseThrow(UserNotFoundException::new);
+        .orElseThrow(() -> new ResourceNotFoundException("User not found"));
   }
 
   @Override

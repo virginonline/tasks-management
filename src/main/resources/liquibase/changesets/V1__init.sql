@@ -22,7 +22,7 @@ create table if not exists tasks
 
 create table if not exists users_tasks
 (
-    task_id  bigint not null,
+    task_id bigint not null,
     user_id bigint not null,
     primary key (task_id, user_id),
     constraint fk_users_tasks_users foreign key (user_id) references users (id) on delete cascade on update no action,
@@ -31,7 +31,7 @@ create table if not exists users_tasks
 
 create table if not exists assigned_tasks
 (
-    task_id     bigint not null,
+    task_id bigint not null,
     user_id bigint not null,
     primary key (task_id, user_id),
     constraint fk_users_tasks_users foreign key (user_id) references users (id) on delete cascade on update no action,

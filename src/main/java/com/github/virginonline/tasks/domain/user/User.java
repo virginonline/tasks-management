@@ -1,6 +1,9 @@
 package com.github.virginonline.tasks.domain.user;
 
+import com.github.virginonline.tasks.domain.AbstractEntity;
+import com.github.virginonline.tasks.domain.comment.Comment;
 import com.github.virginonline.tasks.domain.task.Task;
+import com.github.virginonline.tasks.repository.CommentRepository;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -28,12 +31,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Data
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-
+public class User extends AbstractEntity {
 
   @NotEmpty
   @Column(name = "username", unique = true)
@@ -57,19 +55,7 @@ public class User implements Serializable {
   @JoinTable(name = "users_tasks", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
   private List<Task> ownedTasks;
 
-
   @OneToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "assigned_tasks", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
   private List<Task> assignedTasks;
-
-
-  @CreationTimestamp
-  @Column(name = "created_at", updatable = false)
-  private ZonedDateTime createdAt;
-
-  @UpdateTimestamp
-  @Column(name = "updated_at")
-  private ZonedDateTime updatedAt;
-
-
 }

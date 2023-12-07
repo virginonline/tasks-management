@@ -30,11 +30,11 @@ public class TaskServiceImpl implements TaskService {
   @Override
   public List<Task> getAllByUserId(Long userId) {
     log.info("user id : {}", userId);
-    var tasks = taskRepository.findTaskByUser(userId);
-    return tasks;
+    return taskRepository.findTaskByUser(userId);
   }
 
   @Override
+  @Transactional
   public Task update(Task task) {
     Task existing = getById(task.getId());
 
@@ -65,10 +65,11 @@ public class TaskServiceImpl implements TaskService {
   }
 
   @Override
+  @Transactional
   public void assignTask(Long taskId, String username) {
     var user = userService.getByUsername(username);
     if (userService.isTaskOwner(taskId, user.getId())) {
-      throw new RuntimeException("Owner and assigner task same");
+      throw new IllegalArgumentException("Owner and assigner task have save id's");
     }
     taskRepository.assignTask(taskId, user.getId());
   }
