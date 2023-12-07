@@ -1,10 +1,13 @@
 package com.github.virginonline.tasks.web.api.rest;
 
+import com.github.virginonline.tasks.service.CommentService;
 import com.github.virginonline.tasks.service.TaskService;
+import com.github.virginonline.tasks.web.dto.comment.CommentDto;
 import com.github.virginonline.tasks.web.dto.task.TaskDto;
 import com.github.virginonline.tasks.web.mapper.TaskMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +28,7 @@ public class TaskController {
 
   TaskService taskService;
   TaskMapper taskMapper;
+  CommentService commentService;
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable final Long id) {
@@ -52,5 +56,10 @@ public class TaskController {
   public TaskDto updateTask(@RequestBody TaskDto taskDto) {
     var task = taskService.update(taskMapper.toEntity(taskDto));
     return taskMapper.toDto(task);
+  }
+  @GetMapping("{id}/comments")
+  public List<CommentDto> getComments(@PathVariable Long id) {
+    //var comments = commentService;
+    return null;
   }
 }

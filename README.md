@@ -3,13 +3,14 @@
 ## Installation
 
 create env file
+
 ```shell
 cp .env.example .env
 ```
 
 run docker compose
 ```shell
-dockse compose up
+dockse compose up -d
 ```
 
 ### Environments
