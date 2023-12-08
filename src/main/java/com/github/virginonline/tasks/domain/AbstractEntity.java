@@ -14,9 +14,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Data
-@MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
+@MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

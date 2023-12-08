@@ -18,10 +18,12 @@ import jakarta.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Set;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
 @Table(name = "users")
+@EqualsAndHashCode(callSuper = true)
 public class User extends AbstractEntity {
 
   @NotEmpty

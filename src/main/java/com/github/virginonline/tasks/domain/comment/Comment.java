@@ -8,10 +8,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
 @Table(name = "comments")
+@EqualsAndHashCode(callSuper = true)
 public class Comment extends AbstractEntity {
   @Column(name = "content", nullable = false)
   private String content;

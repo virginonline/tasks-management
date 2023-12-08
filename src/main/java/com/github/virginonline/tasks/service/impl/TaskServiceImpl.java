@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +33,13 @@ public class TaskServiceImpl implements TaskService {
   public List<Task> getAllByUserId(Long userId) {
     log.info("user id : {}", userId);
     return taskRepository.findTaskByUser(userId);
+  }
+
+  @Override
+  public List<Task> getAllByUserId(Long userId, Pageable pageable) {
+    log.info("user id : {} \npagination settings: offset - {} | limit - {}", userId,
+        pageable.getOffset(), pageable.getPageSize());
+    return taskRepository.findTaskByUserWithPagination(userId, pageable);
   }
 
   @Override

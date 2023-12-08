@@ -32,7 +32,6 @@ public class AuthServiceImpl implements AuthService {
             loginRequest.getEmail(), loginRequest.getPassword())
     );
     User user = userService.getByEmail(loginRequest.getEmail());
-    log.info("User found: {}", user);
     jwtResponse.setId(user.getId());
     jwtResponse.setEmail(user.getEmail());
     jwtResponse.setUsername(user.getUsername());

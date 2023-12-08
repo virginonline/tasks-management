@@ -2,6 +2,7 @@ package com.github.virginonline.tasks.service;
 
 import com.github.virginonline.tasks.domain.task.Task;
 import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 public interface TaskService {
 
@@ -18,4 +19,6 @@ public interface TaskService {
   void assignTask(Long taskId, String username);
 
   void changeStatus(Long taskId, String newStatus);
+
+  List<Task> getAllByUserId(Long userId, Pageable pageable);
 }
