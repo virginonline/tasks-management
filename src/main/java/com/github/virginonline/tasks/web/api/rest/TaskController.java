@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/v1/tasks")
 @RequiredArgsConstructor
-@Tag(name = "Task Controller", description = "Task API")
+@Tag(name = "Task Controller", description = "Task controller api")
 public class TaskController {
 
   private final TaskService taskService;
@@ -60,10 +60,9 @@ public class TaskController {
       @RequestParam("username") final String username) {
     taskService.assignTask(id, username);
   }
-
   @PatchMapping
   @Operation(summary = "Update task")
-  @PreAuthorize("@customSecurityExpression.canAccessTask(#taskDto.id)")
+  @PreAuthorize("@customSecurityExpression.isOwner(#taskDto.id)")
   public TaskDto updateTask(@RequestBody TaskDto taskDto) {
     var task = taskService.update(taskMapper.toEntity(taskDto));
     return taskMapper.toDto(task);

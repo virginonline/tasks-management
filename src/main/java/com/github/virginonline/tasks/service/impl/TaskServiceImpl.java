@@ -45,15 +45,14 @@ public class TaskServiceImpl implements TaskService {
   @Override
   @Transactional
   public Task update(Task task) {
-    Task existing = getById(task.getId());
+    var existingTask = getById(task.getId());
 
-    existing.setStatus(task.getStatus() != null ? task.getStatus() : Status.TODO);
-    existing.setPriority(task.getPriority() != null ? task.getPriority() : Priority.LOW);
-
-    existing.setTitle(task.getTitle());
-    existing.setDescription(task.getDescription());
-    existing.setStatus(task.getStatus());
-    existing.setDescription(task.getDescription());
+    existingTask.setStatus(task.getStatus() != null ? task.getStatus() : Status.TODO);
+    existingTask.setPriority(task.getPriority() != null ? task.getPriority() : Priority.LOW);
+    existingTask.setTitle(task.getTitle());
+    existingTask.setDescription(task.getDescription());
+    existingTask.setStatus(task.getStatus());
+    existingTask.setDescription(task.getDescription());
     taskRepository.save(task);
     return task;
   }

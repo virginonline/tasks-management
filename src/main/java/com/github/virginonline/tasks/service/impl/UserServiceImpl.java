@@ -40,11 +40,16 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User update(User user) {
-    return null;
+    var existingUser = getById(user.getId());
+    existingUser.setEmail(user.getEmail());
+    existingUser.setUsername(user.getUsername());
+    existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+    userRepository.save(existingUser);
+    return existingUser;
   }
 
   @Override
-  public User create(User user) {
+  public User create(final User user) {
     if (userRepository.findByUsername(user.getUsername()).isPresent()) {
       throw new IllegalStateException("User already exists.");
     }
@@ -65,7 +70,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void delete(Long userId) {
-    userRepository.delete(getById(userId));
+    userRepository.deleteById(userId);
   }
 
   @Override

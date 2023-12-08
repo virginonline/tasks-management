@@ -19,6 +19,12 @@ public class CommentServiceImpl implements CommentService {
   private final AuthServiceImpl authService;
 
   @Override
+  public Comment getById(Long commentId) {
+    return commentRepository.findById(commentId)
+        .orElseThrow(() -> new ResourceNotFoundException("Comment not found"));
+  }
+
+  @Override
   @Transactional
   public void addComment(Comment comment, Long taskId) {
     comment.setAuthor(authService.getCurrentUser());
@@ -35,8 +41,10 @@ public class CommentServiceImpl implements CommentService {
   }
 
   @Override
-  public void updateComment() {
-
+  public Comment updateComment(Comment comment) {
+    var existingComment = getById(comment.getId());
+    existingComment.setContent(comment.getContent());
+    return commentRepository.save(existingComment);
   }
 
   @Override

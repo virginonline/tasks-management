@@ -21,7 +21,6 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "tasks")
 @EqualsAndHashCode(callSuper = true)
-
 public class Task extends AbstractEntity {
 
   @NotEmpty
