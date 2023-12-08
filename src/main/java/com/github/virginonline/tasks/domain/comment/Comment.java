@@ -5,7 +5,6 @@ import com.github.virginonline.tasks.domain.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -18,6 +17,6 @@ public class Comment extends AbstractEntity {
   private String content;
 
   @ManyToOne
-  @JoinTable(name = "users_comments", inverseJoinColumns = @JoinColumn(name = "author_id"))
+  @JoinColumn(name = "user_id", nullable = false)
   private User author;
 }

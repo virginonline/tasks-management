@@ -63,6 +63,14 @@ public class CustomMethodSecurityExpressionRoot
     return userService.isTaskOwner(id, taskId);
   }
 
+  public boolean isOwner(final Long taskId) {
+    Authentication authentication = SecurityContextHolder.getContext()
+        .getAuthentication();
+    JwtEntity user = (JwtEntity) authentication.getPrincipal();
+    Long id = user.getId();
+    return userService.isTaskOwner(id, taskId);
+  }
+
   @Override
   public Object getThis() {
     return target;

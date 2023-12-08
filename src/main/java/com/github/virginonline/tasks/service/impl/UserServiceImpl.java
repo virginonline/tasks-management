@@ -67,4 +67,9 @@ public class UserServiceImpl implements UserService {
   public void delete(Long userId) {
     userRepository.delete(getById(userId));
   }
+
+  @Override
+  public boolean canAccessTask(Long userId, Long taskId) {
+    return userRepository.canAccessTask(userId, taskId);
+  }
 }

@@ -1,9 +1,7 @@
 package com.github.virginonline.tasks.domain.user;
 
 import com.github.virginonline.tasks.domain.AbstractEntity;
-import com.github.virginonline.tasks.domain.comment.Comment;
 import com.github.virginonline.tasks.domain.task.Task;
-import com.github.virginonline.tasks.repository.CommentRepository;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -11,22 +9,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import java.io.Serializable;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Set;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 @Data
 @Entity
@@ -58,4 +49,5 @@ public class User extends AbstractEntity {
   @OneToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "assigned_tasks", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
   private List<Task> assignedTasks;
+
 }

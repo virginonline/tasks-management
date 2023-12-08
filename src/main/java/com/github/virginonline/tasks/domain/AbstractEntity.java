@@ -21,9 +21,9 @@ public abstract class AbstractEntity implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   @CreationTimestamp
   @Column(name = "created_at", updatable = false)
-
   private ZonedDateTime createdAt;
   @UpdateTimestamp
   @Column(name = "updated_at")

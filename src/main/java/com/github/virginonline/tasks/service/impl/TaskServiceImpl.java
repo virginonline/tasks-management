@@ -7,6 +7,7 @@ import com.github.virginonline.tasks.domain.task.type.Status;
 import com.github.virginonline.tasks.repository.TaskRepository;
 import com.github.virginonline.tasks.service.TaskService;
 import com.github.virginonline.tasks.service.UserService;
+import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -72,5 +73,16 @@ public class TaskServiceImpl implements TaskService {
       throw new IllegalArgumentException("Owner and assigner task have save id's");
     }
     taskRepository.assignTask(taskId, user.getId());
+  }
+
+  @Override
+  public void changeStatus(Long taskId, String newStatus) {
+    var status = Arrays.stream(Status.values()).filter(s -> s.name().equalsIgnoreCase(newStatus))
+        .findFirst().orElseThrow(() -> new ResourceNotFoundException("Status not found"));
+    var task = taskRepository.findById(taskId)
+        .orElseThrow((() -> new ResourceNotFoundException("Task not found")));
+
+    task.setStatus(status);
+    taskRepository.save(task);
   }
 }

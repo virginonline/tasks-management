@@ -5,11 +5,14 @@ import com.github.virginonline.tasks.service.AuthService;
 import com.github.virginonline.tasks.service.UserService;
 import com.github.virginonline.tasks.web.dto.auth.JwtRequest;
 import com.github.virginonline.tasks.web.dto.auth.JwtResponse;
+import com.github.virginonline.tasks.web.security.JwtEntity;
 import com.github.virginonline.tasks.web.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -40,6 +43,14 @@ public class AuthServiceImpl implements AuthService {
         user.getId(), user.getEmail())
     );
     return jwtResponse;
+  }
+
+  public User getCurrentUser() {
+    Authentication authentication = SecurityContextHolder.getContext()
+        .getAuthentication();
+
+    JwtEntity user = (JwtEntity) authentication.getPrincipal();
+    return userService.getById(user.getId());
   }
 
   @Override

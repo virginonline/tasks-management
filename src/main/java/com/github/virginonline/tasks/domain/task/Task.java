@@ -31,6 +31,6 @@ public class Task extends AbstractEntity {
   private Status status;
 
   @OneToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "comments", joinColumns = @JoinColumn(name = "user_id"))
+  @JoinTable(name = "comments_tasks", joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "comment_id"))
   private List<Comment> comments;
 }

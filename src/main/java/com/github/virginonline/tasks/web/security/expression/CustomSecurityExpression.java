@@ -43,7 +43,15 @@ public class CustomSecurityExpression {
     JwtEntity user = (JwtEntity) authentication.getPrincipal();
     Long id = user.getId();
 
-    return userService.isTaskOwner(id, taskId);
+    return userService.canAccessTask(id, taskId);
+
   }
 
+  public boolean isOwner(final Long taskId) {
+    Authentication authentication = SecurityContextHolder.getContext()
+        .getAuthentication();
+    JwtEntity user = (JwtEntity) authentication.getPrincipal();
+    Long id = user.getId();
+    return userService.isTaskOwner(id, taskId);
+  }
 }
